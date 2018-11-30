@@ -12,4 +12,17 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-   .sass('resources/sass/app.scss', 'public/css');
+   .sass('resources/sass/app.scss', 'public/css')
+   .styles([
+      'node_modules/leaflet/dist/leaflet.css',
+  ], 'public/css/all.css')
+  .copyDirectory('node_modules/leaflet/dist','public/lib/leaflet')
+  .copyDirectory('resources/lib/mapbox','public/lib/mapbox')
+  .copyDirectory('resources/lib/fastselect','public/lib/fastselect')
+  .js('resources/js/website/main.js', 'public/js/website/main.js')
+  .js('resources/js/config.js', 'public/js/config.js')
+  .copy('resources/js/en.js','public/js/en.js')
+  .copy('resources/js/sk.js','public/js/sk.js');
+
+
+
