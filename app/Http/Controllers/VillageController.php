@@ -36,7 +36,8 @@ class VillageController extends Controller
             ,ST_AsGeoJSON(point.geom)::json As geometry,
             row_to_json((SELECT l FROM (SELECT point.name, 'bus_stop' as type) As l)) As properties
             FROM planet_osm_point point WHERE  point.highway='bus_stop'
-            and st_contains((SELECT geom from planet_osm_polygon WHERE boundary='administrative' and name='" . $name . "' limit 1) , point.geom)
+            and st_contains((SELECT k.geom from planet_osm_polygon as k CROSS JOIN planet_osm_point as p WHERE p.name=k.name and p.osm_id=" .$id . "
+            and k.boundary='administrative' and st_contains(k.geom, p.geom) limit 1) , point.geom)
             ) As f";
 
         // pokrytie zastavok v dedine
@@ -46,7 +47,8 @@ class VillageController extends Controller
             ,ST_AsGeoJSON(ST_UNION(ST_BUFFER(point.geom::geography,300)::geometry))::json As geometry,
 			row_to_json((SELECT l FROM (SELECT '') As l)) As properties
             FROM planet_osm_point point WHERE  point.highway='bus_stop'
-            and st_contains((SELECT geom from planet_osm_polygon WHERE boundary='administrative' and name='" . $name . "' limit 1) , point.geom)
+            and st_contains((SELECT k.geom from planet_osm_polygon as k CROSS JOIN planet_osm_point as p WHERE p.name=k.name and p.osm_id=" .$id . "
+            and k.boundary='administrative' and st_contains(k.geom, p.geom) limit 1) , point.geom)
             ) As f";
 
         $shopsQuery =  "SELECT array_to_json(array_agg(f)) As features
@@ -55,7 +57,8 @@ class VillageController extends Controller
             ,ST_AsGeoJSON(point.geom)::json As geometry,
             row_to_json((SELECT l FROM (SELECT point.name,point.shop, point.operator, point.amenity) As l)) As properties
             FROM planet_osm_point point WHERE  point.shop is not null
-            and st_contains((SELECT geom from planet_osm_polygon WHERE boundary='administrative' and name='" . $name . "' limit 1) , point.geom)
+            and st_contains((SELECT k.geom from planet_osm_polygon as k CROSS JOIN planet_osm_point as p WHERE p.name=k.name and p.osm_id=" .$id . "
+            and k.boundary='administrative' and st_contains(k.geom, p.geom) limit 1) , point.geom)
             ) As f";
 
         $areaQuery = "SELECT ST_AREA(geom::geography) as area FROM planet_osm_polygon
