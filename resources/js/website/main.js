@@ -127,44 +127,51 @@ $('.accept').click(function() {
     var $select = $('select');
     // Run via plugin facade and get instance
     var selectedValues = $select.data('fastselect').optionsCollection.selectedValues;
-    document.getElementById("loading").style.display = "block";
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-    });
-    $.ajax({
-        type: "POST",
-        url: '/villages',
-        data: JSON.stringify(selectedValues),
-        contentType: 'application/json',
-        dataType: 'json',
-        success: function( data, textStatus, jQxhr ){
-            if (villages) {
-                mymap.removeLayer(villages);
-                control.removeLayer(villages);
-                villages = null;
+    var next = true;
+    for(var value in selectedValues) {
+        if (!translates[value])
+            next = false;
+    }
+    if (next && (!(Object.keys(selectedValues).length === 0) || !(selectedValues.constructor === Object))) {
+        document.getElementById("loading").style.display = "block";
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+        });
+        $.ajax({
+            type: "POST",
+            url: '/villages',
+            data: JSON.stringify(selectedValues),
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function( data, textStatus, jQxhr ){
+                if (villages) {
+                    mymap.removeLayer(villages);
+                    control.removeLayer(villages);
+                    villages = null;
+                }
+                if (!(Object.keys(data).length === 0) || !(data.constructor === Object)) {
+                    villages = L.geoJSON(data,{
+                        pointToLayer: function (feature, latlng) {
+                            geojsonMarkerOptions.radius = (feature.properties.population / 800 ) + 8;
+                            geojsonMarkerOptions.fillColor = legend['basic'];
+                            return L.circleMarker(latlng, geojsonMarkerOptions).on('click', markerOnClick);
+                        },
+                        onEachFeature: villagePopup
+                    });  
+                    mymap.addLayer(villages);
+                    control.addOverlay(villages,'villages');
+                }
+                document.getElementById("loading").style.display = "none";
+            },
+            error: function( jqXhr, textStatus, errorThrown ){
+                alert('Server problem');
+                console.log( errorThrown );
+                document.getElementById("loading").style.display = "none";
             }
-            if (!(Object.keys(data).length === 0) || !(data.constructor === Object)) {
-                villages = L.geoJSON(data,{
-                    pointToLayer: function (feature, latlng) {
-                        geojsonMarkerOptions.radius = (feature.properties.population / 800 ) + 8;
-                        geojsonMarkerOptions.fillColor = legend['basic'];
-                        return L.circleMarker(latlng, geojsonMarkerOptions).on('click', markerOnClick);
-                    },
-                    onEachFeature: villagePopup
-                });  
-                mymap.addLayer(villages);
-                control.addOverlay(villages,'villages');
-            }
-            document.getElementById("loading").style.display = "none";
-        },
-        error: function( jqXhr, textStatus, errorThrown ){
-            alert('Server problem');
-            console.log( errorThrown );
-            document.getElementById("loading").style.display = "none";
-        }
-    });
+        });
+    } else  alert('Zle zadané tagy');
 });
 
 //filter villages by tags

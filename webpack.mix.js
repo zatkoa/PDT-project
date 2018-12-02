@@ -14,7 +14,7 @@ const mix = require('laravel-mix');
 mix.js('resources/js/app.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css')
    .styles([
-      'node_modules/leaflet/dist/leaflet.css',
+      // 'node_modules/leaflet/dist/leaflet.css',
   ], 'public/css/all.css')
   .copyDirectory('node_modules/leaflet/dist','public/lib/leaflet')
   .copyDirectory('resources/lib/mapbox','public/lib/mapbox')

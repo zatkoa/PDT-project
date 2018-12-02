@@ -25,13 +25,10 @@
     <meta property="og:url" content="">
     <meta name="keywords" content="PDTProject">
     <meta property="og:title" content="PDTProject">
-    <link rel="stylesheet" type="text/css" href="css/all.css" /> 
     <link rel="stylesheet" type="text/css" href="css/app.css" /> 
-    <link rel="stylesheet" type="text/css" href="lib/leaflet/leaflet.css" /> 
     <link rel="stylesheet" href="lib/fastselect/fastselect.min.css">
-    {{--  <link rel="stylesheet" type="text/css" href="lib/mapbox/mapbox.css" />   --}}
-
-
+    <link href='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.css' rel='stylesheet' />
+    <link rel="stylesheet" type="text/css" href="css/all.css" /> 
 
 </head>
 <body class="clearfix">
@@ -41,10 +38,7 @@
     </main>
     @include('website.partials.footer')
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('lib/leaflet/leaflet.js') }}"></script>
-    {{--  <script src="{{ asset('lib/mapbox/mapbox.js') }}"></script>  --}}
-
-
+    <script src='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.js'></script>
     @stack('scripts')
 </body>
 </html>
