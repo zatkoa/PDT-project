@@ -19,8 +19,11 @@ mix.js('resources/js/app.js', 'public/js')
   .copyDirectory('node_modules/leaflet/dist','public/lib/leaflet')
   .copyDirectory('resources/lib/mapbox','public/lib/mapbox')
   .copyDirectory('resources/lib/fastselect','public/lib/fastselect')
-  .js('resources/js/website/main.js', 'public/js/website/main.js')
-  .js('resources/js/config.js', 'public/js/config.js')
+  .copyDirectory('resources/icons','public/icons')
+  .scripts(['resources/js/utils.js',
+  'resources/js/config.js',
+  'resources/js/website/main.js',
+ ],'public/js/custom.js')
   .copy('resources/js/en.js','public/js/en.js')
   .copy('resources/js/sk.js','public/js/sk.js');
 

@@ -19,9 +19,6 @@
 
 main { 
   .fstElement {
-    position: absolute;
-    top: 45px;
-    left: 90px;
     z-index: 5000;
   }
 
@@ -33,22 +30,26 @@ main {
     font-size: 1em;
   }
 
-  .fstMultipleMode .fstQueryInput {
-    width: 0px !important;
+  .fstMultipleMode .fstControls {
+    width: 16em;
   }
 
   .accept {
-    position: absolute;
-    top: 45px;
-    left: 270px;
     z-index: 5000;
   }
 
+  .accept-container {
+    margin-top: 20px;
+    margin-bottom: 15px;
+  }
+
   .potential {
-    position: absolute;
-    top: 45px;
-    right: 270px;
     z-index: 5000;
+  }
+
+  .potential-container {
+    margin-top: 20px;
+    margin-bottom: 15px;
   }
 }
 
@@ -69,8 +70,16 @@ h5 {
   transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
   opacity: 0.8;
   color: white;
-  h2 {
+  h4 {
     font-weight: bold;
+  }
+
+  .magic {
+    visibility: hidden;
+    // transition: 0.5s;
+    transition-delay: 1s;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s linear;
   }
 
   #sidenav-content, #legend {
@@ -78,6 +87,9 @@ h5 {
   }
 
   #sidenav-content {
+    h5 {
+      margin-top: 7px;
+    }
     li, .focus{
       cursor: pointer;
     }
@@ -111,6 +123,55 @@ h5 {
   margin-left: 50px;
 }
 
+.myfilter {
+  min-height: 300px;
+  width: 0; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 5000; /* Stay on top */
+  top: 342px; /* Stay at the top */
+  left: 0px;
+  background-color: white; /* Black*/
+  overflow: visible;
+  // overflow-x: hidden; /* Disable horizontal scroll */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+  opacity: 0.95;
+  color: white;
+  border: 2px solid rgba(0,0,0,0.2);
+
+  h4 {
+    color: black;
+  }
+
+  .filter-content {
+    transition: 0.5s; 
+    margin-left: -500px;
+    margin-top: 25px;
+  }
+}
+
+/* The navigation menu links */
+.myFilter a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.myFilter a:hover {
+  color: #f1f1f1;
+}
+
+.myFilter .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
 /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
 #main {
   transition: margin-left .5s;
@@ -121,4 +182,106 @@ h5 {
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
+}
+
+.my-legend .legend-title {
+  text-align: left;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 90%;
+  }
+.my-legend .legend-scale ul {
+  margin: 0;
+  margin-bottom: 5px;
+  padding: 0;
+  float: left;
+  list-style: none;
+  }
+.my-legend .legend-scale ul li {
+  list-style: none;
+  margin-left: 0;
+  line-height: 18px;
+  margin-bottom: 12px;
+  }
+.my-legend ul.legend-labels li span {
+  display: block;
+  float: left;
+  height: 24px;
+  width: 47px;
+  margin-right: 11px;
+  margin-left: 0;
+  border: 1px solid black; 
+  }
+.my-legend .legend-source {
+  font-size: 70%;
+  color: #999;
+  clear: both;
+  }
+.my-legend a {
+  color: #777;
+  }
+
+
+  // LOADING 
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+}
+
+.loader-overlay-container {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.3);
+  z-index: 999;
+}
+.loader {
+  border: 5px solid #f3f3f3;
+  -webkit-animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
+  border-top: 5px solid #555;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;  
+}
+
+.overlay { 
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  position: fixed;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.filter {
+  transition: 0.5s; 
+  background: #fff;
+  border-radius: 5px;
+  position: absolute;
+  width: 48px;
+  height: 44px;
+  left: -5px;
+  top: 342px;
+  z-index: 50029;
+  background-color: white;
+  border: 2px solid rgba(0,0,0,0.2);
+  background-clip: padding-box;
+  cursor: pointer;
+
+  img {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    width: 23px;
+  }
 }

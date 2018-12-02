@@ -11,14 +11,10 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('website.index');
-// });
 Route::post('/villages', 'VillageController@filterVillages');
 Route::get('/', 'VillageController@index');
 Route::get('/villages', 'VillageController@getAllVillages');
 Route::get('/amenities', 'VillageController@getAllAmenities');
-Route::get('/objects', 'VillageController@getObjectInsideVillage');
 Route::get('/nearest/{id}/{name}', 'VillageController@getNearestPoint');
 Route::get('/potential-villages', 'VillageController@getPotentialVillages');
 
