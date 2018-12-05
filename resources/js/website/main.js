@@ -66,10 +66,8 @@ function markerOnClick(e)
         var buffers = JSON.parse(data['buffers']);
         if (!(Object.keys(buffers).length === 0) || !(buffers.constructor === Object)) {
             buffersPolygons = L.geoJSON(buffers);
-            // if (mymap.getZoom() >= 14) {
-                mymap.addLayer(buffersPolygons);
-                control.addOverlay(buffersPolygons,'pokrytie zástavok');
-            // }
+            mymap.addLayer(buffersPolygons);
+            control.addOverlay(buffersPolygons,'pokrytie zástavok');
         }
 
         //shops
@@ -127,12 +125,6 @@ $('.accept').click(function() {
     var $select = $('select');
     // Run via plugin facade and get instance
     var selectedValues = $select.data('fastselect').optionsCollection.selectedValues;
-    var next = true;
-    for(var value in selectedValues) {
-        if (!translates[value])
-            next = false;
-    }
-    if (next && (!(Object.keys(selectedValues).length === 0) || !(selectedValues.constructor === Object))) {
         document.getElementById("loading").style.display = "block";
         $.ajaxSetup({
             headers: {
@@ -171,7 +163,6 @@ $('.accept').click(function() {
                 document.getElementById("loading").style.display = "none";
             }
         });
-    } else  alert('Zle zadané tagy');
 });
 
 //filter villages by tags
@@ -225,8 +216,8 @@ $('.closesidenav').click(function() {
     if (stops) {
         mymap.removeLayer(stops);
         control.removeLayer(stops);
-        shops = null;
-        bustStopNumber = 1;
+        stops = null;
+        busStopNumber = 1;
     }
 });
 

@@ -3,7 +3,7 @@ var stops;
 var shops;
 var buffersPolygons;
 var village;
-var bustStopNumber = 1;
+var busStopNumber = 1;
 var shopNumber = 1;
 L.mapbox.accessToken = 'pk.eyJ1IjoiemF0a28xNSIsImEiOiJjam95dXp3engybjhxM3Frd2RsNG1idnNzIn0.XeAu3rJjqQXAUG688RJX_w';
 var mymap = L.mapbox.map('mapid').setView([49.0959297, 19.7823528], 13);

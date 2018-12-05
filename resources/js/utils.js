@@ -85,9 +85,9 @@ function stopsPopup(feature, layer) {
         if (feature.properties.name)
             str += '<span>' + feature.properties.name + '</span>';
         else {
-            str += '<span>Nepomenovaná zástavka č. ' + bustStopNumber +'</span>';
-            feature.properties.name = 'Nepomenovaná zástavka č. ' + bustStopNumber; 
-            bustStopNumber++;
+            str += '<span>Nepomenovaná zástavka č. ' + busStopNumber +'</span>';
+            feature.properties.name = 'Nepomenovaná zástavka č. ' + busStopNumber; 
+            busStopNumber++;
         }
         layer.bindPopup(str,  {closeButton: false, offset: L.point(0, -20)});
         layer.on('mouseover', function() { layer.openPopup(); });
